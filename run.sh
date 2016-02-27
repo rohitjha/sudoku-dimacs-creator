@@ -23,7 +23,6 @@ OUTPUT=sudoku.out
 PYTHON=python
 
 echo "Randomly generating the first row, first column and the main diagonal..."
-#$PYTHON sudokuCreator.py $N > $INITIAL
 $PYTHON createProblem.py $N > $INITIAL
 
 echo "The Sudoku problem is..."

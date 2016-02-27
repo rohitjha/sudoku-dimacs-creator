@@ -4,9 +4,11 @@ import sys
 def pad(n, d):
     count = d
     s = n
+    
     while(count > 0):
         s = '0' + s
         count -= 1
+
     return s
 
 def main():
@@ -28,7 +30,7 @@ def main():
         sys.exit()
 
     elif data == 'INDET\n':
-        print("Could not determine if a solution exists.")
+        print("Could not determine if a solution exists for the randomly generated initial state.")
         sys.exit()
 
     else:
@@ -64,7 +66,6 @@ def main():
             sudoku[row-1].insert(col-1, val)
 
     # Show the matrix
-    #print(sudoku)
     for row in sudoku:
         for val in row:
             print(str(val) + "\t"),
