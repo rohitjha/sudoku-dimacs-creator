@@ -5,26 +5,27 @@ def literal(i, j, k, n2):
     return fit(i, n2) + fit(j, n2) + fit(k, n2)
 
 def fit(n, n2):
-    fitn = ""
     diff = len(str(n2)) - len(str(n))
-    for i in range(0, diff):
-        fitn += "0"
+    
+    zeros = ["0" for i in range(0, diff)]
+    fitn = ''.join(zeros)
+
     fitn += str(n)
     return fitn
 
-def readInitial(n, fname):
-	dimacs = ""
-	dimacs += "c Adding random values for first row, first column and main diagonal\n"
-	lines = [word[:-1].split(',') for line in open(fname, 'r') for word in line.split()]
 
-	for i in range(0, len(lines)):
-		for j in range(0, len(lines[i])):
-			value = lines[i][j]
-			if value != '':
-                            dimacs += literal(i+1, j+1, value, n*n) + " 0\n"
-	
-	#print dimacs
-	return dimacs
+def readInitial(n, fname):
+    dimacs = ""
+    dimacs += "c Adding random values for first row, first column and main diagonal\n"
+    lines = [word[:-1].split(',') for line in open(fname, 'r') for word in line.split()]
+
+    
+    literals = [ (literal(i+1, j+1, lines[i][j], n*n) + " 0\n") for i in range(0, len(lines)) for j in range(0, len(lines[i])) if lines[i][j] != '' ]
+    literals = ''.join(literals)
+
+    dimacs += literals
+    
+    return dimacs
 
 def reduction1(n, initial):
     n2      = n * n
@@ -33,9 +34,7 @@ def reduction1(n, initial):
     dimacs  = initial
     digits = len(str(n2))
 
-    '''UNDER CONSTRUCTION: NEED TO ADD OTHER CLAUSES TOO'''
-
-    #NEW
+    
     dimacs += "c There is at most one number in each cell\n"
     for i in range(1, n2 + 1):
       for j in range(1, n2 + 1):
@@ -49,10 +48,10 @@ def reduction1(n, initial):
       for j in range(1, n2 + 1):
         for k in range(1, n2 + 1):
           dimacs += literal(i, j, k, n2) + " "
-        dimacs += "0 \n"
+        dimacs += "0\n"
         clauses += 1
 
-    # NEW
+    
     dimacs += "c Each number appears at most once in each row\n"
     for j in range(1, n2 + 1):
       for k in range(1, n2 + 1):
@@ -66,7 +65,7 @@ def reduction1(n, initial):
       for k in range(1, n2 + 1):
         for i in range(1, n2 + 1):
           dimacs += literal(i, j, k, n2) + " "
-        dimacs += "0 \n"
+        dimacs += "0\n"
         clauses += 1
 
     dimacs += "c Each number appears at most once in each column\n"
@@ -82,7 +81,7 @@ def reduction1(n, initial):
       for k in range(1, n2 + 1):
         for j in range(1, n2 + 1):
           dimacs += literal(i, j, k, n2) + " "
-        dimacs += "0 \n"
+        dimacs += "0\n"
         clauses += 1
 
     dimacs += "c Each number appears at most once in each " + str(n) + "*" + str(n) + " sub-matrix\n"
@@ -112,12 +111,12 @@ def reduction1(n, initial):
                 for i in range(1, n + 1):
                     for j in range(1, n + 1):
                       dimacs += literal(n*x + i, n*y + j, k, n2) + " "
-        dimacs += "0 \n"
+        dimacs += "0\n"
         clauses += 1
 
 
-    dimacs = "c Created by Sudoku Dimacs Creator \n" + dimacs
-    dimacs = "p cnf " + str(atoms) + " " + str(clauses) + " \n" + dimacs
+    dimacs = "c Created by Sudoku Dimacs Creator\n" + dimacs
+    dimacs = "p cnf " + str(atoms) + " " + str(clauses) + "\n" + dimacs
 
     print(dimacs),
 
@@ -126,14 +125,14 @@ def reduction2(n, initial):
     atoms   = n2 * n2 * n2
     clauses = 0
     dimacs  = initial
-    digits = len(str(n2))
+    digits  = len(str(n2))
 
     dimacs += "c At least one number in each entry\n"
     for i in range(1, n2 + 1):
       for j in range(1, n2 + 1):
         for k in range(1, n2 + 1):
           dimacs += literal(i, j, k, n2) + " "
-        dimacs += "0 \n"
+        dimacs += "0\n"
         clauses += 1
     
     
@@ -175,8 +174,8 @@ def reduction2(n, initial):
                                 clauses += 1
 
 
-    dimacs = "c Created by Sudoku Dimacs Creator \n" + dimacs
-    dimacs = "p cnf " + str(atoms) + " " + str(clauses) + " \n" + dimacs
+    dimacs = "c Created by Sudoku Dimacs Creator\n" + dimacs
+    dimacs = "p cnf " + str(atoms) + " " + str(clauses) + "\n" + dimacs
 
     print(dimacs),
 
