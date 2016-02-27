@@ -56,6 +56,16 @@ def main():
 
         # Check if these values are valid in the first submatrix.
         # If not then generate a new random list and keep testing.
+        new_sudoku_col = [0]
+        new_sudoku_col[0] = sudoku_row[0]
+
+        possible_valid_col_set = random.sample(valid_col_set, len(valid_col_set))
+        for i in possible_valid_col_set:
+            new_sudoku_col.append(i)
+        
+        sudoku_col = new_sudoku_col
+
+
         while subMatrixInvalid(sudoku_row, sudoku_col, n):
             new_sudoku_col = [0]
             new_sudoku_col[0] = sudoku_row[0]

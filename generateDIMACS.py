@@ -12,7 +12,7 @@ def fit(n, n2):
     fitn += str(n)
     return fitn
 
-def readInitial(fname):
+def readInitial(n, fname):
 	dimacs = ""
 	dimacs += "c Adding random values for first row, first column and main diagonal\n"
 	lines = [word[:-1].split(',') for line in open(fname, 'r') for word in line.split()]
@@ -21,7 +21,7 @@ def readInitial(fname):
 		for j in range(0, len(lines[i])):
 			value = lines[i][j]
 			if value != '':
-				dimacs += str(i+1) + str(j+1) + value + " 0 \n"
+                            dimacs += literal(i+1, j+1, value, n*n) + " 0 \n"
 	
 	#print dimacs
 	return dimacs
@@ -185,7 +185,7 @@ def main():
     reduction = int(sys.argv[2])
     initial = sys.argv[3]
 
-    initialClauses = readInitial(initial)
+    initialClauses = readInitial(n, initial)
     
     if reduction == 1:
         reduction1(n, initialClauses)
