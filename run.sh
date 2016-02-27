@@ -25,7 +25,12 @@ echo "Randomly generating the first row, first column and the main diagonal..."
 python createProblem.py $N > $INITIAL
 
 echo "The Sudoku problem is..."
-python showProblem.py $INITIAL
+if [ "$N" -eq "1" ]
+	then
+	echo "1"
+else
+	python showProblem.py $INITIAL
+fi
 
 echo "Generating DIMACS format input for $SAT ..."
 python generateDIMACS.py $N $RED $INITIAL > $INPUT

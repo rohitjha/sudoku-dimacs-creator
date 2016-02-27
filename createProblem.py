@@ -29,7 +29,8 @@ def main():
     size = n*n
 
     if n == size:
-        return '1'
+        print('1')
+        sys.exit()
 
     inValid = True
 
@@ -122,8 +123,9 @@ def main():
         for cols in range(len(puzzle[rows])):
             output += puzzle[rows][cols].strip()+","
         output += "\n"
-    return output
+    
+    print(output)
 
 
 if __name__ == '__main__':
-    print main()
+    main()
