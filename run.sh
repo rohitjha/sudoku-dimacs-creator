@@ -20,24 +20,25 @@ PARAM="-cpu-lim 3600"
 INITIAL=initial.state
 INPUT=sudoku.in
 OUTPUT=sudoku.out
+PYTHON=python
 
 echo "Randomly generating the first row, first column and the main diagonal..."
-#python sudokuCreator.py $N > $INITIAL
-python createProblem.py $N > $INITIAL
+#$PYTHON sudokuCreator.py $N > $INITIAL
+$PYTHON createProblem.py $N > $INITIAL
 
 echo "The Sudoku problem is..."
 if [ "$N" -eq "1" ]
 	then
 	echo "1"
 else
-	python showProblem.py $INITIAL
+	$PYTHON showProblem.py $INITIAL
 fi
 
 echo "Generating DIMACS format input for $SAT ..."
-python generateDIMACS.py $N $RED $INITIAL > $INPUT
+$PYTHON generateDIMACS.py $N $RED $INITIAL > $INPUT
 
 echo "Input file generated: $INPUT"
 echo "Running SAT solver now..."
 $SAT $INPUT $OUTPUT
 
-python showResult.py $N $OUTPUT
+$PYTHON showResult.py $N $OUTPUT
