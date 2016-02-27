@@ -13,7 +13,6 @@ def subMatrixInvalid(row, col, n):
 
 def isDiagonalInvalid(row, col, dia, n):
     for i in range(1, n*n):
-        #print (dia[i], row[i], col[i])
         if (dia[i] == row[i]) or (dia[i] == col[i]):
             return True
     
@@ -34,12 +33,10 @@ def main():
 
     inValid = True
 
-    #print "BEFORE LOOP"
     while inValid:
 
         # Generate a random row
         sudoku_row = random.sample(range(1,size+1), size)    
-        #print "ROW DONE"
 
 
         # Create an empty column and set its first element to first element of row
@@ -76,8 +73,6 @@ def main():
             
             sudoku_col = new_sudoku_col
 
-        #print "COL DONE"
-        
 
         sudoku_dia = [0]
         sudoku_dia[0] = sudoku_row[0]
@@ -87,14 +82,10 @@ def main():
 
         for i in valid_dia_set:
             sudoku_dia.append(i)
-
         
         counter = 0
 
-        #print "CHECKING DIA"
-
         while isDiagonalInvalid(sudoku_row, sudoku_col, sudoku_dia, n):
-            #print "INSIDE DIA CHECK"
             counter += 1
             if counter == 10:
                 inValid = True
@@ -113,25 +104,19 @@ def main():
             inValid = False
 
 
-    #print "DIA DONE"
-    #print sudoku_row
-    #print sudoku_col
-    #print sudoku_dia
-
-    space = ' '*len(str(size))
-    puzzle = [[space for _ in range(size)] for _ in range(size)]
+    puzzle = [['' for _ in range(size)] for _ in range(size)]
 
     for n in range(size):
-        puzzle[0][n] = str(sudoku_row[n])#.rjust(len(str(size)))
+        puzzle[0][n] = str(sudoku_row[n])
     for n in range(len(sudoku_col)):
-        puzzle[n][0] = str(sudoku_col[n])#.rjust(len(str(size)))
+        puzzle[n][0] = str(sudoku_col[n])
     for n in range(len(sudoku_dia)):
-        puzzle[n][n] = str(sudoku_dia[n])#.rjust(len(str(size)))
+        puzzle[n][n] = str(sudoku_dia[n])
 
     output = ""
     for rows in range(len(puzzle)):
         for cols in range(len(puzzle[rows])):
-            output += puzzle[rows][cols].strip()+","
+            output += puzzle[rows][cols]+","
         output += "\n"
     
     print(output)
