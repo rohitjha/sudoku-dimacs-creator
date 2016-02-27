@@ -21,7 +21,7 @@ def readInitial(n, fname):
 		for j in range(0, len(lines[i])):
 			value = lines[i][j]
 			if value != '':
-                            dimacs += literal(i+1, j+1, value, n*n) + " 0 \n"
+                            dimacs += literal(i+1, j+1, value, n*n) + " 0\n"
 	
 	#print dimacs
 	return dimacs
@@ -41,7 +41,7 @@ def reduction1(n, initial):
       for j in range(1, n2 + 1):
         for k in range(1, n2):
           for h in range(k + 1, n2 + 1):
-            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(i, j, h, n2) + " 0 \n"
+            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(i, j, h, n2) + " 0\n"
             clauses += 1
     
     dimacs += "c There is at least one number in each cell\n"
@@ -58,7 +58,7 @@ def reduction1(n, initial):
       for k in range(1, n2 + 1):
         for i in range(1, n2):
           for h in range(i + 1, n2 + 1):
-            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(h, j, k, n2) + " 0 \n"
+            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(h, j, k, n2) + " 0\n"
             clauses += 1
     
     dimacs += "c Each number appears at least once in each row\n"
@@ -92,7 +92,7 @@ def reduction1(n, initial):
                 for i in range(1, n + 1):
                     for j in range(1, n + 1):
                         for z in range(j + 1, n + 1):
-                          dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + i, n*y + z, k, n2) + " 0 \n"
+                          dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + i, n*y + z, k, n2) + " 0\n"
                           clauses += 1
 
     for k in range(1, n2 + 1):
@@ -102,7 +102,7 @@ def reduction1(n, initial):
                     for j in range(1, n + 1):
                         for z in range(i + 1, n + 1):
                             for w in range(1, n + 1):
-                              dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + z, n*y + w, k, n2) + " 0 \n"
+                              dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + z, n*y + w, k, n2) + " 0\n"
                               clauses += 1
 
     dimacs += "c Each number appears at least once in each " + str(n) + "*" + str(n) + " sub-matrix\n"
@@ -142,7 +142,7 @@ def reduction2(n, initial):
       for j in range(1, n2 + 1):
         for k in range(1, n2 + 1):
           for j_s in range(j+1, n2 + 1):
-            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(i, j_s, k, n2) + " 0 \n"
+            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(i, j_s, k, n2) + " 0\n"
             clauses += 1
     
     dimacs += "c A number is not repeated in a column\n"
@@ -150,7 +150,7 @@ def reduction2(n, initial):
       for j in range(1, n2 + 1):
         for k in range(1, n2 + 1):
           for i_s in range(i+1, n2 + 1):
-            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(i_s, j, k, n2) + " 0 \n"
+            dimacs += "-" + literal(i, j, k, n2) + " -" + literal(i_s, j, k, n2) + " 0\n"
             clauses += 1
 
 
@@ -161,7 +161,7 @@ def reduction2(n, initial):
                 for i in range(1, n+1):
                     for j in range(1, n+1):
                         for z in range(j+1, n+1):
-                            dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + i, n*y + z, k, n2) + " 0 \n"
+                            dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + i, n*y + z, k, n2) + " 0\n"
                             clauses += 1
 
     for k in range(1, n2+1):
@@ -171,7 +171,7 @@ def reduction2(n, initial):
                     for j in range(1, n+1):
                         for z in range(i+1, n+1):
                             for w in range(1, n+1):
-                                dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + z, n*y + w, k, n2) + " 0 \n"
+                                dimacs += "-" + literal(n*x + i, n*y + j, k, n2) + " -" + literal(n*x + z, n*y + w, k, n2) + " 0\n"
                                 clauses += 1
 
 

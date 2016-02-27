@@ -16,6 +16,7 @@ if [[ RED -ne 1 && RED -ne 2 ]]
 fi
 
 SAT=minisat
+PARAM="-cpu-lim 3600"
 INITIAL=initial.state
 INPUT=sudoku.in
 OUTPUT=sudoku.out
